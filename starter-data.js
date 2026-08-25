@@ -1,0 +1,828 @@
+// Your tasks. The app loads anything new in here the next time you open it.
+window.STARTER_DATA = {
+  "projects": [
+    {
+      "id": "7dbca096-a972-478a-877f-a9be04ee375d",
+      "name": "General",
+      "color": "#e8384f"
+    },
+    {
+      "id": "39138290-9306-4c76-b7c6-b9119807eda8",
+      "name": "Personal",
+      "color": "#fd612c"
+    },
+    {
+      "id": "6f95b861-d6e0-4e55-b1e2-0ecc8db06384",
+      "name": "Health",
+      "color": "#f5c400"
+    },
+    {
+      "id": "0a7ae5aa-632d-4823-ace9-c0f07e6708d1",
+      "name": "Idanim Todos",
+      "color": "#5da283"
+    },
+    {
+      "id": "a7f38082-2bdb-462f-9216-6ce98d71bf8c",
+      "name": "DM Strategic",
+      "color": "#3e9fdb"
+    },
+    {
+      "id": "9cd43097-15c1-462c-9ba2-6328fbc44f61",
+      "name": "DM General",
+      "color": "#8f6ee5"
+    },
+    {
+      "id": "380e707e-ea36-4906-a1c1-760f8c51889f",
+      "name": "DM Social, video, design, copy",
+      "color": "#ea4e9d"
+    },
+    {
+      "id": "7e86747d-406b-46d8-bad9-9fc89c79a553",
+      "name": "DM Performance",
+      "color": "#7a8ca0"
+    },
+    {
+      "id": "5923d35a-d6fa-4518-81f0-97a755293a5b",
+      "name": "DM MarTech",
+      "color": "#e8384f"
+    },
+    {
+      "id": "bc073982-c932-4da6-b7b0-f500640b3102",
+      "name": "DM GTM, Sales and marketing",
+      "color": "#fd612c"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "19f256cd-3cf2-49d9-836c-e5e2f3c9bd53",
+      "title": "Get back to Prateek",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755300000000
+    },
+    {
+      "id": "da3d279b-427c-49e4-b632-f7e879ac0b74",
+      "title": "How to work on Mark Down files?",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299940000
+    },
+    {
+      "id": "a823b81b-650e-452b-adb4-6cd4c7909c6e",
+      "title": "Learn Claude - Todos app for myself",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299880000
+    },
+    {
+      "id": "afa2b9d1-f6cf-4c29-a70e-67e280756742",
+      "title": "MacBook Pro to the IT team",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299820000
+    },
+    {
+      "id": "43f43a5f-b123-4c8f-ab56-3861852ec831",
+      "title": "Idanim members salary till Dec but movement in Sept",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299760000
+    },
+    {
+      "id": "3938e786-fcf5-4a3f-b6b8-aada0f7775d0",
+      "title": "Visit Amit Saxena",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299700000
+    },
+    {
+      "id": "9102c108-4fe7-4ce2-8fa0-374789d23946",
+      "title": "Neelam - Deepshikha & health",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299640000
+    },
+    {
+      "id": "cff4e9c5-b83d-465c-a8e1-84a5ce3cf828",
+      "title": "Learn Claude",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299580000
+    },
+    {
+      "id": "abef7b63-64c8-45a2-8b52-a53ad18f1c22",
+      "title": "Some projects for Anshika for 2 months",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299520000
+    },
+    {
+      "id": "78619a9a-8943-4e68-8498-7bc16d87aa15",
+      "title": "ITR for FY26",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299460000
+    },
+    {
+      "id": "dbbf0d9b-0f7a-4e23-9539-a2dcb915618f",
+      "title": "Aditya's session with Naman and KD",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299400000
+    },
+    {
+      "id": "86422f5a-35ec-40db-ba43-3c7e78c12c24",
+      "title": "IB statement to Mayank",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299340000
+    },
+    {
+      "id": "f1172e58-e80a-40dc-8544-bb68a133f3fe",
+      "title": "Nishtha - relieving date",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299280000
+    },
+    {
+      "id": "699ad348-0ab3-4fdc-b4e9-a13ba02d47ec",
+      "title": "Todos on OnePass - email and address change",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299220000
+    },
+    {
+      "id": "d5bc7de1-76bf-4dd9-bc02-17f829f36b00",
+      "title": "Section 12AA and 80G certificates - final",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299160000
+    },
+    {
+      "id": "ae61b8c5-f699-4de8-8553-0891d20ed1cc",
+      "title": "My version of The Worksheet",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299100000
+    },
+    {
+      "id": "3b763d49-0d59-4426-8f65-994e27097567",
+      "title": "Capital remove - understand from Aurtus",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755299040000
+    },
+    {
+      "id": "7ac2638f-9d4b-4654-a19b-0d7b171e0d8e",
+      "title": "Books",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755298980000
+    },
+    {
+      "id": "1b1e1f3a-a505-4940-910e-327903999e9e",
+      "title": "Reach out to Eckhart Tolle on my own",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755298920000
+    },
+    {
+      "id": "3a586a6b-b553-4545-bc7d-51c54e452182",
+      "title": "Accounting update of SG accounts",
+      "priority": "High",
+      "projectIds": [
+        "7dbca096-a972-478a-877f-a9be04ee375d"
+      ],
+      "done": false,
+      "createdAt": 1755298860000
+    },
+    {
+      "id": "34b6576f-6039-4e6c-aaed-527c9d756800",
+      "title": "Start doing exercises recommended by Dr. Pathak",
+      "priority": "High",
+      "projectIds": [
+        "39138290-9306-4c76-b7c6-b9119807eda8",
+        "6f95b861-d6e0-4e55-b1e2-0ecc8db06384"
+      ],
+      "done": false,
+      "createdAt": 1755298800000
+    },
+    {
+      "id": "9bb868b4-a256-446b-b157-6a82484571d4",
+      "title": "Appraisals of Idanim team",
+      "priority": "High",
+      "projectIds": [
+        "0a7ae5aa-632d-4823-ace9-c0f07e6708d1"
+      ],
+      "done": false,
+      "createdAt": 1755298740000
+    },
+    {
+      "id": "07cfed4e-39a4-45a5-976e-97712c53bbe6",
+      "title": "Entity for YT, App Store, Play Store",
+      "priority": "High",
+      "projectIds": [
+        "0a7ae5aa-632d-4823-ace9-c0f07e6708d1"
+      ],
+      "done": false,
+      "createdAt": 1755298680000
+    },
+    {
+      "id": "6785c200-69ef-4793-b3a7-6b2447b19d26",
+      "title": "Dance meditation - search for musician",
+      "priority": "High",
+      "projectIds": [
+        "0a7ae5aa-632d-4823-ace9-c0f07e6708d1"
+      ],
+      "done": false,
+      "createdAt": 1755298620000
+    },
+    {
+      "id": "be5b315b-4a7a-47b1-bcad-46987d0328d6",
+      "title": "Live learn to meditate course for beginners",
+      "priority": "High",
+      "projectIds": [
+        "0a7ae5aa-632d-4823-ace9-c0f07e6708d1"
+      ],
+      "done": false,
+      "createdAt": 1755298560000
+    },
+    {
+      "id": "047741ec-d0de-4149-9fac-fa365387afa8",
+      "title": "Anshika to be authorized signatory",
+      "priority": "High",
+      "projectIds": [
+        "0a7ae5aa-632d-4823-ace9-c0f07e6708d1"
+      ],
+      "done": false,
+      "createdAt": 1755298500000
+    },
+    {
+      "id": "535e8e96-0670-431d-aece-84e977d389bc",
+      "title": "Gayatri – discussion and clarity",
+      "priority": "Medium",
+      "projectIds": [
+        "a7f38082-2bdb-462f-9216-6ce98d71bf8c"
+      ],
+      "done": false,
+      "createdAt": 1755400000000
+    },
+    {
+      "id": "a7fd8cd4-fd6d-4cf8-91a0-37e3151f8b0f",
+      "title": "5-year plan / vision. How do I want to run it? What do I want out of it?",
+      "priority": "Medium",
+      "projectIds": [
+        "a7f38082-2bdb-462f-9216-6ce98d71bf8c"
+      ],
+      "done": false,
+      "createdAt": 1755399940000
+    },
+    {
+      "id": "fcea3232-5bd7-4eb1-9c55-157fde41e00c",
+      "title": "As per 5-year plan, what kind of revenue and people do I want in the team?",
+      "priority": "Medium",
+      "projectIds": [
+        "a7f38082-2bdb-462f-9216-6ce98d71bf8c"
+      ],
+      "done": false,
+      "createdAt": 1755399880000
+    },
+    {
+      "id": "a8255c89-9ffa-4ab8-879f-e7cd8e29bfc5",
+      "title": "Hiring of 2-3 Marketers who are intelligent - salary range, skills, Practices?",
+      "priority": "Medium",
+      "projectIds": [
+        "a7f38082-2bdb-462f-9216-6ce98d71bf8c"
+      ],
+      "done": false,
+      "createdAt": 1755399820000
+    },
+    {
+      "id": "cc6fe7b4-bc8f-407c-8a3f-abcc52252035",
+      "title": "Feedback to Gayatri on how she shares feedback - her equation with Geetika and Kriti",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399760000
+    },
+    {
+      "id": "60de225a-3318-48f8-af0d-4753bc150c54",
+      "title": "GM of Social & B2B to be looked at the combined level",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399700000
+    },
+    {
+      "id": "9db9ad6f-5659-409f-b5e5-65f7244670e5",
+      "title": "Some dashboard that is free for all or most of the customers as a value-add",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399640000
+    },
+    {
+      "id": "84960da3-4b77-4f3c-a9df-1e8a339da4e6",
+      "title": "What to do with Naval? Should we move him to overheads?",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399580000
+    },
+    {
+      "id": "4fe1572e-2ab4-4113-9500-5d439d47f581",
+      "title": "Training and learning sessions to be started",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399520000
+    },
+    {
+      "id": "0a4e85af-1a1a-416c-b916-1c0620a585c2",
+      "title": "Movement of people across Practices, allocation of cost — for example, design team working on media creatives, social team working on hcl",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399460000
+    },
+    {
+      "id": "9dc91f91-3729-4c4f-8829-94d8c95d4ea0",
+      "title": "Saif meeting",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399400000
+    },
+    {
+      "id": "31ae8557-f817-4f0f-a950-0aa4d6fd5dc7",
+      "title": "Visit Amit Saxena",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399340000
+    },
+    {
+      "id": "6bb0a854-a4db-4858-974a-d1ed92ddf155",
+      "title": "Is Practice Structure working?",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399280000
+    },
+    {
+      "id": "1f9aedd9-069c-4657-b0a9-6ab4df78bba6",
+      "title": "Meeting with Amit on Jyotsna",
+      "priority": "Medium",
+      "projectIds": [
+        "9cd43097-15c1-462c-9ba2-6328fbc44f61"
+      ],
+      "done": false,
+      "createdAt": 1755399220000
+    },
+    {
+      "id": "3ca966c4-8ef6-4f65-994c-d3a17de876aa",
+      "title": "Blah",
+      "priority": "Medium",
+      "projectIds": [
+        "380e707e-ea36-4906-a1c1-760f8c51889f"
+      ],
+      "done": false,
+      "createdAt": 1755399160000
+    },
+    {
+      "id": "647a39ea-34b3-466f-8c4c-8a012a1376c6",
+      "title": "Story telling in pitching for media pitches - we don't do good",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755399100000
+    },
+    {
+      "id": "05130179-1acf-4ce7-810b-85329658d5bb",
+      "title": "Can Marketing Automation and Analytics team help the media team with attribution, CRM related issues, data accuracy, etc? Joint meeting with Badli, Amit and Dhiren",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755399040000
+    },
+    {
+      "id": "b9b7d8f3-1225-45e3-a3dd-05b5dc487238",
+      "title": "Automate reports wherever possible",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755398980000
+    },
+    {
+      "id": "b68a80fb-27e8-4587-b940-7f9fbef4a83a",
+      "title": "AI layer for better insights",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755398920000
+    },
+    {
+      "id": "249ccb37-d029-4a01-b1cb-55b092de34e6",
+      "title": "Delivery structure of MarTech",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755398860000
+    },
+    {
+      "id": "ba3de60d-ca47-4a72-9203-c6711b475770",
+      "title": "Who should replace Anshul?",
+      "priority": "Medium",
+      "projectIds": [
+        "7e86747d-406b-46d8-bad9-9fc89c79a553"
+      ],
+      "done": false,
+      "createdAt": 1755398800000
+    },
+    {
+      "id": "76ed8e2b-bd03-4543-a7b2-3664a9540cbe",
+      "title": "Replacement of Dhiren",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398740000
+    },
+    {
+      "id": "0a6a530e-a345-4917-8ef8-1222d2bf0642",
+      "title": "Wipe Hotwire website delivery",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398680000
+    },
+    {
+      "id": "e12bc314-0e78-46ea-8d3e-bb290c1fe880",
+      "title": "Sales deck on Reporting made easy, along with business insights",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398620000
+    },
+    {
+      "id": "03dc516d-aa54-493a-a0c8-98e902da1f8b",
+      "title": "Explore partnership with SFMC in India",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398560000
+    },
+    {
+      "id": "9c7ffc6d-8f2a-4379-961b-9bf9d94bc68b",
+      "title": "Offering and sales deck for Conversion Rate Optimization",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398500000
+    },
+    {
+      "id": "fac437e5-8047-4f39-8782-1c8af1908932",
+      "title": "Aditya's session with internal members on automation",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398440000
+    },
+    {
+      "id": "8d53083f-61e3-4839-abc7-7d98ae5c8f22",
+      "title": "Demo of automation cases: GA Health Check by Automation Team",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398380000
+    },
+    {
+      "id": "e9acad7d-5093-453c-b963-7c46ad888379",
+      "title": "MoEngage training",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398320000
+    },
+    {
+      "id": "b109a485-e21f-42fa-9b63-ecadf12f3750",
+      "title": "Meeting with Aastha from Grazitti",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398260000
+    },
+    {
+      "id": "21bc390c-78a3-4d30-8f0a-ab6a8db95f81",
+      "title": "Difference between SFMC and CT from Sahil",
+      "priority": "Medium",
+      "projectIds": [
+        "5923d35a-d6fa-4518-81f0-97a755293a5b"
+      ],
+      "done": false,
+      "createdAt": 1755398200000
+    },
+    {
+      "id": "243dbd09-7741-4f1d-892e-6a3de84a8247",
+      "title": "DM website",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755398140000
+    },
+    {
+      "id": "7d7b0831-1781-4643-be23-8d220b77140b",
+      "title": "Sales process followed by Gurjot, Aditya, Bhakti - is it on track?",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755398080000
+    },
+    {
+      "id": "a43f4307-7f7b-4f2d-af9f-2886c78f2ef3",
+      "title": "HCL thought leadership campaigns",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755398020000
+    },
+    {
+      "id": "109b3ef5-b48a-4faf-808d-4c974184b213",
+      "title": "Meet Sumit Pachnanda",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397960000
+    },
+    {
+      "id": "6f7e420d-6b33-4cd8-91f6-eb2bdd2ed573",
+      "title": "Meeting with Shouvik",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397900000
+    },
+    {
+      "id": "c8454953-0106-465d-9192-a909ab2c517f",
+      "title": "Role play session with everybody",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397840000
+    },
+    {
+      "id": "ae65337c-df28-455b-9c21-1e91b5ab09d8",
+      "title": "Start webinars",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397780000
+    },
+    {
+      "id": "06cce9d4-dcc9-44fd-b716-be67d0d5c3a0",
+      "title": "Gurjot's requests for Account Mining - discuss with Gayatri",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397720000
+    },
+    {
+      "id": "ea902c8e-8951-4ef8-b229-ca119d4a3958",
+      "title": "Call with Sunny",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397660000
+    },
+    {
+      "id": "ab7baa0c-8169-462f-95e2-5bace5350070",
+      "title": "Go through all the sales decks",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397600000
+    },
+    {
+      "id": "13bd5f8a-795b-4f74-81ad-3ba75f670a95",
+      "title": "Malvika for Sales",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397540000
+    },
+    {
+      "id": "9c3067ce-2623-45b0-ae2c-28c60a7002e6",
+      "title": "CRO slide for SEO",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397480000
+    },
+    {
+      "id": "8e34d8ea-6ec7-4e5b-b1ac-852ed0448d4a",
+      "title": "Reporting format for Sales Leads",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397420000
+    },
+    {
+      "id": "6395cab9-0c88-4030-82f9-050186eff0dc",
+      "title": "Lead gen process for Gurjot, Aditya and Bhakti",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397360000
+    },
+    {
+      "id": "8eaef1e3-e1ff-44f2-b0f3-d7982c17b0ff",
+      "title": "Marketing event",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397300000
+    },
+    {
+      "id": "f9fdaab6-a8e4-42ab-8aa5-1541c64f5b9c",
+      "title": "Meeting with Chetan Chopra",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397240000
+    },
+    {
+      "id": "2e9a2800-4a86-477a-b49e-015db9b1f57c",
+      "title": "A doc on best practices for qualification, proposal, pre-sales",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397180000
+    },
+    {
+      "id": "dcb68533-8e53-4b5e-b28a-7d03d82a286d",
+      "title": "Sales decks for all the defined ICPs, competencies, practices and overall at one place",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397120000
+    },
+    {
+      "id": "5f807e12-3c18-4bc9-93f9-06118e99645a",
+      "title": "Understand Hyper-local work",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397060000
+    },
+    {
+      "id": "98f4a660-977f-4cf4-b60d-71f2099a1f15",
+      "title": "Meeting with Nivransh from Growth Natives",
+      "priority": "Medium",
+      "projectIds": [
+        "bc073982-c932-4da6-b7b0-f500640b3102"
+      ],
+      "done": false,
+      "createdAt": 1755397000000
+    }
+  ]
+};

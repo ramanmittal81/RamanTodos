@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Todos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Todos</h1>
+    <span class="topbar-sub" id="summary"></span>
+    <div class="topbar-actions">
+      <button type="button" id="exportBtn">Export backup</button>
+      <button type="button" id="importBtn">Import backup</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Projects</h2>
+      <ul class="project-list" id="projectList"></ul>
+
+      <form class="project-form" id="projectForm">
+        <input type="text" id="projectName" placeholder="New project" maxlength="60" autocomplete="off">
+        <button type="submit" title="Add project">+</button>
+      </form>
+    </aside>
+
+    <main class="main">
+      <form class="task-form" id="taskForm">
+        <div class="task-form-row">
+          <input type="text" id="taskTitle" placeholder="What needs doing?" maxlength="200" autocomplete="off">
+          <select id="taskPriority" aria-label="Priority">
+            <option value="High">High</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <button type="submit" id="taskSubmit">Add task</button>
+        </div>
+        <div class="task-form-projects">
+          <span class="label">Projects</span>
+          <div class="chip-row" id="formProjects"></div>
+        </div>
+      </form>
+
+      <div class="searchbar">
+        <input type="search" id="searchInput" placeholder="Search tasks…" autocomplete="off">
+      </div>
+
+      <div class="filters">
+        <span class="filter-scope" id="filterScope">All tasks</span>
+        <label class="filter-field">Show
+          <select id="filterPriority">
+            <option value="">All priorities</option>
+            <option value="High">High only</option>
+            <option value="Medium">Medium only</option>
+            <option value="Low">Low only</option>
+          </select>
+        </label>
+        <label class="filter-field">Sort by
+          <select id="sortBy">
+            <option value="priority">Priority</option>
+            <option value="project">Project</option>
+            <option value="newest">Newest first</option>
+          </select>
+        </label>
+      </div>
+
+      <ul class="task-list" id="taskList"></ul>
+
+      <section class="completed" id="completedSection" hidden>
+        <button type="button" class="completed-toggle" id="completedToggle"></button>
+        <ul class="task-list" id="completedList"></ul>
+      </section>
+
+      <p class="empty" id="emptyState" hidden>Nothing here yet.</p>
+    </main>
+  </div>
+
+  <script src="starter-data.js?v=fc047514"></script>
+  <script src="app.js"></script>
+</body>
+</html>
