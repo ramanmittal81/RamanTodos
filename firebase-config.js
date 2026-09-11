@@ -17,6 +17,10 @@ firebase.initializeApp(firebaseConfig);
 window.auth = firebase.auth();
 window.db = firebase.firestore();
 
+// Set up Google Sign-In
+window.googleProvider = new firebase.auth.GoogleAuthProvider();
+window.googleProvider.setCustomParameters({ prompt: 'select_account' });
+
 // Enable offline persistence
 firebase.firestore().enablePersistence()
   .catch((err) => {

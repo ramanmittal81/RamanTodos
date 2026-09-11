@@ -193,6 +193,7 @@
       if (user) {
         userId = user.uid;
         firebaseReady = true;
+        updateAuthUI(user);
         loadFromFirebase().then(function(loaded) {
           if (loaded) {
             render();
@@ -210,11 +211,36 @@
           });
         });
       } else {
-        auth.signInAnonymously().catch(function(err) {
-          console.error('Auth error:', err);
-        });
+        updateAuthUI(null);
       }
     });
+  }
+
+  function signInWithGoogle() {
+    if (!useFirebase) return;
+    auth.signInWithPopup(googleProvider)
+      .catch(function(err) {
+        console.error('Google Sign-In error:', err);
+        alert('Sign in failed: ' + err.message);
+      });
+  }
+
+  function signOut() {
+    if (!useFirebase) return;
+    auth.signOut().catch(function(err) {
+      console.error('Sign out error:', err);
+    });
+  }
+
+  function updateAuthUI(user) {
+    var btn = el.authBtn;
+    if (user) {
+      btn.textContent = 'Sign out (' + (user.displayName || user.email || 'User') + ')';
+      btn.style.color = '#4573d2';
+    } else {
+      btn.textContent = 'Sign in with Google';
+      btn.style.color = 'inherit';
+    }
   }
 
   function uid() {
@@ -250,6 +276,7 @@
     completedToggle: document.getElementById('completedToggle'),
     completedList: document.getElementById('completedList'),
     emptyState: document.getElementById('emptyState'),
+    authBtn: document.getElementById('authBtn'),
     exportBtn: document.getElementById('exportBtn'),
     importBtn: document.getElementById('importBtn'),
     importFile: document.getElementById('importFile')
@@ -820,6 +847,14 @@
   el.completedToggle.addEventListener('click', function () {
     showCompleted = !showCompleted;
     render();
+  });
+
+  el.authBtn.addEventListener('click', function () {
+    if (auth.currentUser) {
+      signOut();
+    } else {
+      signInWithGoogle();
+    }
   });
 
   el.exportBtn.addEventListener('click', exportBackup);
