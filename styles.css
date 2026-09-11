@@ -417,6 +417,30 @@ button, input, select { font: inherit; color: inherit; }
 
 .task-actions button:hover { background: var(--bg); color: var(--text); }
 .task-actions button.delete:hover { color: var(--danger); }
+.task-actions button.notes.on { color: var(--accent); }
+
+.notes-editor {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 200px;
+  line-height: 1.4;
+}
+
+.notes-textarea:focus { outline: none; border-color: var(--accent); }
 
 /* ---------- completed ---------- */
 

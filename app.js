@@ -11,6 +11,9 @@
   // These two must be declared before load() runs, or its results get wiped.
   var storageWorks = true;
   var newlyAdded = 0; // how many items starter-data.js contributed on this load
+  var useFirebase = window.db && window.auth; // Check if Firebase is available
+  var firebaseReady = false;
+  var userId = null;
 
   var state = load();
 
@@ -20,13 +23,15 @@
   var sortBy = 'priority';      // 'priority' | 'project' | 'newest'
   var searchText = '';          // text typed into the search box
   var expandedId = null;        // task whose project picker is open
+  var notesId = null;           // task whose notes are displayed
   var formProjects = [];        // project ids selected in the add-task form
   var showCompleted = false;
 
   function copyTask(t) {
     return {
       id: t.id, title: t.title, priority: t.priority,
-      projectIds: t.projectIds.slice(), done: !!t.done, createdAt: t.createdAt
+      projectIds: t.projectIds.slice(), done: !!t.done, createdAt: t.createdAt,
+      notes: t.notes || ''
     };
   }
 
@@ -140,6 +145,76 @@
         warnIfStorageBlocked();
       }
     }
+    if (firebaseReady && userId) saveToFirebase();
+  }
+
+  function saveToFirebase() {
+    if (!useFirebase || !firebaseReady || !userId) return;
+    try {
+      db.collection('users').doc(userId).set({
+        projects: state.projects,
+        tasks: state.tasks,
+        lastUpdated: new Date()
+      }).catch(function(err) {
+        console.error('Firebase save error:', err);
+      });
+    } catch (e) {
+      console.error('Firebase save error:', e);
+    }
+  }
+
+  function loadFromFirebase() {
+    if (!useFirebase || !userId) return Promise.resolve();
+    return db.collection('users').doc(userId).get()
+      .then(function(doc) {
+        if (doc.exists) {
+          var data = doc.data();
+          if (data.projects && data.tasks) {
+            state.projects = data.projects || [];
+            state.tasks = data.tasks || [];
+            state.tasks.forEach(function (t) {
+              if (!Array.isArray(t.projectIds)) t.projectIds = [];
+              if (!t.notes) t.notes = '';
+            });
+            return true;
+          }
+        }
+        return false;
+      })
+      .catch(function(err) {
+        console.error('Firebase load error:', err);
+        return false;
+      });
+  }
+
+  function initFirebase() {
+    if (!useFirebase) return;
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        userId = user.uid;
+        firebaseReady = true;
+        loadFromFirebase().then(function(loaded) {
+          if (loaded) {
+            render();
+          }
+          // Listen for real-time updates
+          db.collection('users').doc(userId).onSnapshot(function(doc) {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              var data = doc.data();
+              if (data.projects && data.tasks) {
+                state.projects = data.projects;
+                state.tasks = data.tasks;
+                render();
+              }
+            }
+          });
+        });
+      } else {
+        auth.signInAnonymously().catch(function(err) {
+          console.error('Auth error:', err);
+        });
+      }
+    });
   }
 
   function uid() {
@@ -218,6 +293,7 @@
         if (!Array.isArray(t.projectIds)) t.projectIds = [];
         if (PRIORITIES.indexOf(t.priority) === -1) t.priority = 'Medium';
         if (!t.createdAt) t.createdAt = Date.now();
+        if (!t.notes) t.notes = '';
         t.done = !!t.done;
       });
       scope = 'all';
@@ -275,7 +351,8 @@
       priority: el.taskPriority.value,
       projectIds: formProjects.slice(),
       done: false,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      notes: ''
     });
 
     resetForm();
@@ -338,8 +415,16 @@
   function deleteTask(id) {
     state.tasks = state.tasks.filter(function (t) { return t.id !== id; });
     if (expandedId === id) expandedId = null;
+    if (notesId === id) notesId = null;
     save();
     render();
+  }
+
+  function setNotes(id, text) {
+    var task = taskById(id);
+    if (!task) return;
+    task.notes = text;
+    save();
   }
 
   // ---------- rendering ----------
@@ -615,6 +700,17 @@
     var actions = document.createElement('div');
     actions.className = 'task-actions';
 
+    var notesBtn = document.createElement('button');
+    notesBtn.type = 'button';
+    notesBtn.className = task.notes ? 'notes on' : 'notes';
+    notesBtn.textContent = 'Notes';
+    notesBtn.title = task.notes ? 'Edit notes' : 'Add notes';
+    notesBtn.addEventListener('click', function () {
+      notesId = notesId === task.id ? null : task.id;
+      render();
+    });
+    actions.appendChild(notesBtn);
+
     var del = document.createElement('button');
     del.type = 'button';
     del.className = 'delete';
@@ -626,6 +722,21 @@
     li.appendChild(check);
     li.appendChild(body);
     li.appendChild(actions);
+
+    if (notesId === task.id) {
+      var notesEditor = document.createElement('div');
+      notesEditor.className = 'notes-editor';
+      var textarea = document.createElement('textarea');
+      textarea.className = 'notes-textarea';
+      textarea.value = task.notes || '';
+      textarea.placeholder = 'Add notes or bullet points...';
+      textarea.addEventListener('input', function () {
+        setNotes(task.id, textarea.value);
+      });
+      notesEditor.appendChild(textarea);
+      li.appendChild(notesEditor);
+    }
+
     return li;
   }
 
@@ -725,4 +836,9 @@
   warnIfStorageBlocked();
   announceNewTasks();
   save(); // Persist the starter data on first run so later edits stick.
+
+  // Initialize Firebase if available
+  if (useFirebase) {
+    initFirebase();
+  }
 })();
