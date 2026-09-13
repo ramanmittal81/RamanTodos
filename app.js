@@ -856,13 +856,18 @@
     render();
   });
 
-  el.authBtn.addEventListener('click', function () {
-    if (auth.currentUser) {
-      signOut();
-    } else {
-      signInWithGoogle();
-    }
-  });
+  if (el.authBtn) {
+    el.authBtn.addEventListener('click', function () {
+      console.log('Auth button clicked');
+      if (auth.currentUser) {
+        signOut();
+      } else {
+        signInWithGoogle();
+      }
+    });
+  } else {
+    console.error('Auth button not found in DOM');
+  }
 
   el.exportBtn.addEventListener('click', exportBackup);
 
