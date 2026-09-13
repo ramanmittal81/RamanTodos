@@ -217,8 +217,15 @@
   }
 
   function signInWithGoogle() {
-    if (!useFirebase) return;
-    auth.signInWithPopup(googleProvider)
+    if (!useFirebase) {
+      alert('Firebase not available');
+      return;
+    }
+    if (!window.googleProvider) {
+      alert('Google provider not initialized');
+      return;
+    }
+    auth.signInWithPopup(window.googleProvider)
       .catch(function(err) {
         console.error('Google Sign-In error:', err);
         alert('Sign in failed: ' + err.message);
