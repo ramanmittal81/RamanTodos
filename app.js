@@ -197,6 +197,11 @@
         loadFromFirebase().then(function(loaded) {
           if (loaded) {
             render();
+          } else {
+            // Nothing saved in the cloud yet, so seed it from this device.
+            // Without this, a first sign-in uploads nothing until an edit,
+            // and the next device would pull down an empty list.
+            saveToFirebase();
           }
           // Listen for real-time updates
           db.collection('users').doc(userId).onSnapshot(function(doc) {
@@ -216,37 +221,95 @@
     });
   }
 
-  function signInWithGoogle() {
-    if (!useFirebase) {
-      alert('Firebase not available');
+  // Firebase reports failures as short codes; show the user something readable instead.
+  function authMessage(err) {
+    var code = err.code || '';
+    // Firebase spells this one as a whole sentence, so match loosely.
+    if (code.indexOf('api-key') !== -1) {
+      return 'The app is not set up correctly yet (its Firebase key is wrong). ' +
+        'This needs fixing in the Firebase settings — it is not something you did wrong.';
+    }
+    switch (code) {
+      case 'auth/invalid-email': return 'That does not look like a valid email address.';
+      case 'auth/missing-password': return 'Please enter your password.';
+      case 'auth/weak-password': return 'Please pick a password of at least 6 characters.';
+      case 'auth/email-already-in-use': return 'An account already exists for that email. Try signing in instead.';
+      case 'auth/invalid-credential':
+      case 'auth/wrong-password':
+      case 'auth/user-not-found': return 'Wrong email or password.';
+      case 'auth/too-many-requests': return 'Too many attempts. Please wait a minute and try again.';
+      case 'auth/network-request-failed': return 'Cannot reach the server. Check your internet connection.';
+      case 'auth/operation-not-allowed': return 'Email sign-in is not switched on for this app yet.';
+      case 'auth/unauthorized-domain': return 'This web address is not approved for sign-in yet.';
+      default: return err.message;
+    }
+  }
+
+  function showAuthError(node, err) {
+    console.error('Auth error:', err.code, err);
+    if (!node) return;
+    node.textContent = authMessage(err);
+    node.hidden = false;
+  }
+
+  function clearAuthErrors() {
+    if (el.loginError) el.loginError.hidden = true;
+    if (el.registerError) el.registerError.hidden = true;
+  }
+
+  function signIn() {
+    if (!useFirebase) return;
+    clearAuthErrors();
+    auth.signInWithEmailAndPassword(
+      (el.loginEmail.value || '').trim(),
+      el.loginPassword.value || ''
+    ).catch(function (err) {
+      showAuthError(el.loginError, err);
+    });
+  }
+
+  function register() {
+    if (!useFirebase) return;
+    clearAuthErrors();
+    if ((el.registerPassword.value || '') !== (el.registerConfirm.value || '')) {
+      showAuthError(el.registerError, { code: 'local/mismatch', message: 'The two passwords do not match.' });
       return;
     }
-    if (!window.googleProvider) {
-      alert('Google provider not initialized');
-      return;
-    }
-    auth.signInWithPopup(window.googleProvider)
-      .catch(function(err) {
-        console.error('Google Sign-In error:', err);
-        alert('Sign in failed: ' + err.message);
-      });
+    auth.createUserWithEmailAndPassword(
+      (el.registerEmail.value || '').trim(),
+      el.registerPassword.value || ''
+    ).catch(function (err) {
+      showAuthError(el.registerError, err);
+    });
   }
 
   function signOut() {
     if (!useFirebase) return;
-    auth.signOut().catch(function(err) {
+    auth.signOut().catch(function (err) {
       console.error('Sign out error:', err);
     });
   }
 
+  function showRegisterForm(showRegister) {
+    clearAuthErrors();
+    if (el.loginForm) el.loginForm.hidden = showRegister;
+    if (el.registerForm) el.registerForm.hidden = !showRegister;
+  }
+
   function updateAuthUI(user) {
-    var btn = el.authBtn;
+    // Without Firebase the app still works offline, so never block it behind a login.
+    if (!useFirebase) {
+      if (el.loginScreen) el.loginScreen.hidden = true;
+      return;
+    }
+    if (el.loginScreen) el.loginScreen.hidden = !!user;
+    if (el.signOutBtn) el.signOutBtn.hidden = !user;
+    if (el.userEmail) el.userEmail.textContent = user ? (user.email || '') : '';
     if (user) {
-      btn.textContent = 'Sign out (' + (user.displayName || user.email || 'User') + ')';
-      btn.style.color = '#4573d2';
-    } else {
-      btn.textContent = 'Sign in with Google';
-      btn.style.color = 'inherit';
+      clearAuthErrors();
+      if (el.loginPassword) el.loginPassword.value = '';
+      if (el.registerPassword) el.registerPassword.value = '';
+      if (el.registerConfirm) el.registerConfirm.value = '';
     }
   }
 
@@ -283,7 +346,22 @@
     completedToggle: document.getElementById('completedToggle'),
     completedList: document.getElementById('completedList'),
     emptyState: document.getElementById('emptyState'),
-    authBtn: document.getElementById('authBtn'),
+    loginScreen: document.getElementById('loginScreen'),
+    loginForm: document.getElementById('loginForm'),
+    registerForm: document.getElementById('registerForm'),
+    loginEmail: document.getElementById('loginEmail'),
+    loginPassword: document.getElementById('loginPassword'),
+    loginBtn: document.getElementById('loginBtn'),
+    loginError: document.getElementById('loginError'),
+    toggleRegister: document.getElementById('toggleRegister'),
+    registerEmail: document.getElementById('registerEmail'),
+    registerPassword: document.getElementById('registerPassword'),
+    registerConfirm: document.getElementById('registerConfirm'),
+    registerBtn: document.getElementById('registerBtn'),
+    registerError: document.getElementById('registerError'),
+    toggleLogin: document.getElementById('toggleLogin'),
+    signOutBtn: document.getElementById('signOutBtn'),
+    userEmail: document.getElementById('userEmail'),
     exportBtn: document.getElementById('exportBtn'),
     importBtn: document.getElementById('importBtn'),
     importFile: document.getElementById('importFile')
@@ -856,18 +934,30 @@
     render();
   });
 
-  if (el.authBtn) {
-    el.authBtn.addEventListener('click', function () {
-      console.log('Auth button clicked');
-      if (auth.currentUser) {
-        signOut();
-      } else {
-        signInWithGoogle();
-      }
-    });
-  } else {
-    console.error('Auth button not found in DOM');
+  if (el.loginBtn) el.loginBtn.addEventListener('click', signIn);
+  if (el.registerBtn) el.registerBtn.addEventListener('click', register);
+  if (el.signOutBtn) el.signOutBtn.addEventListener('click', signOut);
+
+  if (el.toggleRegister) {
+    el.toggleRegister.addEventListener('click', function () { showRegisterForm(true); });
   }
+  if (el.toggleLogin) {
+    el.toggleLogin.addEventListener('click', function () { showRegisterForm(false); });
+  }
+
+  // Enter should submit whichever form is showing, as in any normal login box.
+  [el.loginEmail, el.loginPassword].forEach(function (node) {
+    if (!node) return;
+    node.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); signIn(); }
+    });
+  });
+  [el.registerEmail, el.registerPassword, el.registerConfirm].forEach(function (node) {
+    if (!node) return;
+    node.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); register(); }
+    });
+  });
 
   el.exportBtn.addEventListener('click', exportBackup);
 
@@ -886,6 +976,9 @@
 
   // Initialize Firebase if available
   if (useFirebase) {
+    // Ask for the login up front; onAuthStateChanged hides this again if the
+    // previous session is still valid, so returning users rarely see it.
+    if (el.loginScreen) el.loginScreen.hidden = false;
     initFirebase();
   }
 })();

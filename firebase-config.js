@@ -2,7 +2,7 @@
 // Get this from: Firebase Console → Project Settings → Web App Config
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBhANAKsssWP-xr0SisAoBgco7BVuzrxbY4",
+  apiKey: "AIzaSyBhANAKssWP-xr0SisAoBgco7BVuzrxbY4",
   authDomain: "todos-app-cbd55.firebaseapp.com",
   projectId: "todos-app-cbd55",
   storageBucket: "todos-app-cbd55.firebasestorage.app",
