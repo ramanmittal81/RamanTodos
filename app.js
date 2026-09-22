@@ -547,9 +547,20 @@
       if (scope === 'none' && t.projectIds.length) return false;
       if (scope !== 'all' && scope !== 'none' && t.projectIds.indexOf(scope) === -1) return false;
       if (priorityFilter && t.priority !== priorityFilter) return false;
-      if (needle && t.title.toLowerCase().indexOf(needle) === -1) return false;
+      if (needle && !matchesSearch(t, needle)) return false;
       return true;
     });
+  }
+
+  // Typing a project name is a natural way to look for its tasks, so search
+  // covers those as well as the title.
+  function matchesSearch(t, needle) {
+    if (t.title.toLowerCase().indexOf(needle) !== -1) return true;
+    for (var i = 0; i < t.projectIds.length; i++) {
+      var p = projectById(t.projectIds[i]);
+      if (p && p.name.toLowerCase().indexOf(needle) !== -1) return true;
+    }
+    return false;
   }
 
   function byPriorityThenNewest(a, b) {
