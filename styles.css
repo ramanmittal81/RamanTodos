@@ -573,8 +573,78 @@ button, input, select { font: inherit; color: inherit; }
 }
 
 @media (max-width: 720px) {
-  .layout { flex-direction: column; padding: 16px; gap: 16px; }
+  .layout {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+    /* Keep the last task clear of the iPhone home indicator. */
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  }
   .sidebar { flex: 1 1 auto; width: 100%; }
+
+  /* Header: hold the title and count together on one line, and give the
+     buttons a row of their own so their labels stop breaking mid-phrase. */
+  .topbar {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+  }
+  .topbar-sub { flex: 0 0 auto; white-space: nowrap; }
+  .topbar-actions { width: 100%; flex-wrap: wrap; gap: 6px; }
+  .topbar-actions button { flex: 1 1 auto; min-height: 40px; }
+  .user-email {
+    flex: 1 1 100%;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Projects scroll sideways as one row. As a stacked list they filled the
+     whole screen and pushed every task out of sight. */
+  .project-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .project-list li {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+  }
+  /* There is no hover on a touchscreen, so an only-on-hover delete button
+     can never be reached. Deleting still asks for confirmation first. */
+  .project-list li .remove { visibility: visible; padding: 0 4px; }
+
   .task-form-row { flex-wrap: wrap; }
   .task-form-row input[type="text"] { flex: 1 1 100%; }
+  .task-form-row button { flex: 1 1 auto; min-height: 44px; }
+
+  /* Put both dropdowns on one row instead of stacking them. */
+  .filters { gap: 8px; }
+  .filter-scope { flex: 1 1 100%; }
+  .filter-field { flex: 1 1 0; min-width: 0; white-space: nowrap; }
+  .filter-field select { flex: 1 1 auto; min-width: 0; }
+
+  /* Anything under 16px makes iOS Safari zoom the page in when the field is
+     tapped, and it never zooms back out. */
+  input, select, textarea,
+  .login-form input { font-size: 16px; }
+  .priority-select { font-size: 11px; }
+
+  /* Leave a gap at the screen edges so the corners are not clipped. */
+  .login-screen { padding: 16px; }
+
+  /* Finger-sized targets: these were 16-22px, well under a usable tap area. */
+  .task input[type="checkbox"] { width: 22px; height: 22px; margin-top: 1px; }
+  .task-actions { gap: 2px; }
+  .task-actions button { padding: 9px 10px; }
+  .chip { padding: 7px 12px; }
+
+  .login-modal { padding: 28px 22px; }
 }
